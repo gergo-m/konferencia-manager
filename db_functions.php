@@ -10,15 +10,17 @@ function conference_connect() {
     // for avien hosted database
     require __DIR__ . '/vendor/autoload.php';
 
-    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-    $dotenv->load();
+    if (file_exists(__DIR__ . '/.env')) {
+        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+        $dotenv->load();
+    }
 
-    $host = $_ENV['DB_HOST'];
-    $port = $_ENV['DB_PORT'];
-    $user = $_ENV['DB_USER'];
-    $pass = $_ENV['DB_PASS'];
-    $dbname = $_ENV['DB_NAME'];
-    $ssl_ca = $_ENV['DB_SSL_CA'];
+    $host = $_ENV['DB_HOST'] ?? getenv('DB_HOST');
+    $port = $_ENV['DB_PORT'] ?? getenv('DB_PORT');
+    $user = $_ENV['DB_USER'] ?? getenv('DB_USER');
+    $pass = $_ENV['DB_PASS'] ?? getenv('DB_PASS');
+    $dbname = $_ENV['DB_NAME'] ?? getenv('DB_NAME');
+    $ssl_ca = $_ENV['DB_SSL_CA'] ?? getenv('DB_SSL_CA');
 
     $conn = mysqli_init();
     mysqli_options($conn, MYSQLI_OPT_SSL_VERIFY_SERVER_CERT, true);
