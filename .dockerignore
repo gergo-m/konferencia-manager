@@ -1,0 +1,4 @@
+vendor/
+.env
+ca.pem
+.git/
