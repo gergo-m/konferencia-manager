@@ -1,0 +1,58 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="conference_program.php">Konferencia</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <#ifNoSession>
+                <li class="nav-item">
+                    <a class="nav-link fw-bold" href="register.php">Regisztráció</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fw-bold" href="login.php">Bejelentkezés</a>
+                </li>
+            <#endIfNoSession>
+            <#ifSession>
+            <#ifSzerzo>
+            <li class="nav-item">
+                <a class="nav-link fw-bold" href="upload_article.php">Cikk feltöltése</a>
+            </li>
+        <#endIfSzerzo>
+        <#ifAdmin>
+        <li class="nav-item">
+            <a class="nav-link fw-bold" href="articles.php">Cikkek</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link fw-bold" href="lectures.php">Előadások</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link fw-bold" href="sections.php">Szekciók</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link fw-bold" href="users.php">Felhasználók</a>
+        </li>
+    <#endIfAdmin>
+    <li class="nav-item">
+        <a class="nav-link fw-bold" href="profile.php">Profil</a>
+    </li>
+<#endIfSession>
+</ul>
+</div>
+</div>
+</nav>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const currentUrl = window.location.href;
+        const pageName = currentUrl.split('/').pop().split('?')[0].split('#')[0];
+        const links = document.querySelectorAll("a.nav-link");
+
+        links.forEach(link => {
+            if (link.getAttribute("href") === pageName) {
+                link.classList.add("active");
+            }
+        });
+    });
+</script>

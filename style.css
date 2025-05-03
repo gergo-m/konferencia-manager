@@ -1,0 +1,9 @@
+.new-section {
+    border-top: 2px solid #212529 !important; /* Adjust color and thickness as needed */
+}
+
+.alert .btn-close {
+    position: absolute;
+    top: 16px;
+    right: 10px;
+}

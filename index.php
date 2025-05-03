@@ -1,0 +1,1 @@
+<?phpheader("Location: conference_program.php");
