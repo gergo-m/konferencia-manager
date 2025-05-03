@@ -7,11 +7,33 @@ function conference_connect() {
         return null;
     }*/
 
+    // for avien hosted database
+    require __DIR__ . '/vendor/autoload.php';
+
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+    $dotenv->load();
+
+    $host = $_ENV['DB_HOST'];
+    $port = $_ENV['DB_PORT'];
+    $user = $_ENV['DB_USER'];
+    $pass = $_ENV['DB_PASS'];
+    $dbname = $_ENV['DB_NAME'];
+    $ssl_ca = $_ENV['DB_SSL_CA'];
+
+    $conn = mysqli_init();
+    mysqli_options($conn, MYSQLI_OPT_SSL_VERIFY_SERVER_CERT, true);
+    mysqli_ssl_set($conn, NULL, NULL, $ssl_ca, NULL, NULL);
+    try {
+        mysqli_real_connect($conn, $host, $user, $pass, $dbname, (int)$port);
+    } catch (mysqli_sql_exception $e) {
+        die("Connection failed: " . $e->getMessage());
+    }
+
     // for localhost with phpmyadmin and xampp
-    $conn = mysqli_connect("localhost", "root", "") or die("Connection error");
+    /*$conn = mysqli_connect("localhost", "root", "") or die("Connection error");
     if (!mysqli_select_db($conn, "konferencia")) {
         return null;
-    }
+    }*/
 
     mysqli_query($conn, "SET NAMES UTF8");
     mysqli_query($conn, "SET character_set_results=utf8");

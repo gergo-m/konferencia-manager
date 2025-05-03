@@ -1,0 +1,8 @@
+{
+    "name": "vendor/konferencia",
+    "description": "-",
+    "type": "project",
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    }
+}
