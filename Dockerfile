@@ -23,6 +23,18 @@ RUN composer install --no-dev --optimize-autoloader
 # Make sure Apache can write to necessary directories
 RUN chown -R www-data:www-data /var/www/html
 
+# Create a directory for the CA certificate and set permissions
+RUN mkdir -p /var/www/ssl && \
+    chown -R www-data:www-data /var/www/ssl
+
+# Copy the CA certificate from Render's secret mount point to your app's SSL directory
+# Copy the entrypoint script
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+# Set the entrypoint
+ENTRYPOINT ["docker-entrypoint.sh"]
+
 # Expose port 80
 EXPOSE 80
 
