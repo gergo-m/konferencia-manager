@@ -20,8 +20,10 @@ function conference_connect() {
     $user = $_ENV['DB_USER'] ?? getenv('DB_USER');
     $pass = $_ENV['DB_PASS'] ?? getenv('DB_PASS');
     $dbname = $_ENV['DB_NAME'] ?? getenv('DB_NAME');
-    $ssl_ca = $_ENV['DB_SSL_CA'] ?? getenv('DB_SSL_CA');
+    $ssl_ca = $_ENV['DB_SSL_CA'] ?? getenv('DB_SSL_CA') ?? '/etc/secrets/ca.pem';
 
+    echo $ssl_ca;
+    echo readfile($ssl_ca);
     $conn = mysqli_init();
     mysqli_options($conn, MYSQLI_OPT_SSL_VERIFY_SERVER_CERT, true);
     mysqli_ssl_set($conn, NULL, NULL, $ssl_ca, NULL, NULL);
